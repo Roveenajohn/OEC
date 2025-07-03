@@ -65,3 +65,34 @@ export const getUsers = async () => {
 
     return await response.json();
 };
+// Assign a user to a procedure
+export async function assignUserToProcedure(planId, procedureId, userId) {
+  return fetch(`${api_url}/PlanProcedureUsers`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ planId, procedureId, userId }),
+  });
+}
+
+// Get assigned users for a procedure in a plan
+export async function getAssignedUsers(planId, procedureId) {
+  const res = await fetch(`${api_url}/PlanProcedureUsers/${planId}/${procedureId}`);
+  if (!res.ok) throw new Error('Failed to fetch assigned users');
+  return res.json();
+}
+
+// Remove a single user from a procedure
+export async function removeUser(planId, procedureId, userId) {
+  return fetch(`${api_url}/PlanProcedureUsers/${planId}/${procedureId}/${userId}`, {
+    method: 'DELETE',
+  });
+}
+
+// Remove all users from a procedure
+export async function removeAllUsers(planId, procedureId) {
+  return fetch(`${api_url}/PlanProcedureUsers/${planId}/${procedureId}`, {
+    method: 'DELETE',
+  });
+}
+
+

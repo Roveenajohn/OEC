@@ -36,19 +36,17 @@ const Plan = () => {
     if (hasProcedureInPlan) return;
 
     await addProcedureToPlan(id, procedure.procedureId);
-    setPlanProcedures((prevState) => {
-      return [
-        ...prevState,
-        {
-          planId: id,
+    setPlanProcedures((prevState) => [
+      ...prevState,
+      {
+        planId: id,
+        procedureId: procedure.procedureId,
+        procedure: {
           procedureId: procedure.procedureId,
-          procedure: {
-            procedureId: procedure.procedureId,
-            procedureTitle: procedure.procedureTitle,
-          },
+          procedureTitle: procedure.procedureTitle,
         },
-      ];
-    });
+      },
+    ]);
   };
 
   return (
@@ -84,7 +82,7 @@ const Plan = () => {
                           key={p.procedure.procedureId}
                           procedure={p.procedure}
                           users={users}
-                        />
+                          planId={id}                          />
                       ))}
                     </div>
                   </div>
